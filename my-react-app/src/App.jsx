@@ -1,39 +1,26 @@
-import { useState } from 'react'
-import {BrowserRouter as Router , Routes , Route} from "react-router-dom";
-
-import Navbar from './components/Navbar';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
-import Result from './Pages/Result';
+import ScanResult from './Pages/Scan';
 import History from './Pages/History';
 import About from './Pages/About';
-import './App.css'
 
 function App() {
-  const [scanResult, setScanResult] = useState(null);
-  const [history , setHistory] = useState([]);
-
-  const handleScan = (url) => {
-    const result = {
-      url,
-      isPhishing: Math.random() > 0.5,
-      score: Math.floor(Math.random() * 100),
-      explanation: "This URL shows suspicious pattern such as unusual characters and missing HTTPS"
-    };
-
-    setScanResult(result);
-    setHistory((prev) => [result, ...prev]);
-  };
   return (
-   <Router>
-    <Navbar/>
-    <Routes>
-      <Route path="/" element={<Home onScan={handleScan}/>}/>
-         <Route path="/result" element={<Result scanResult={scanResult} />} />
-        <Route path="/history" element={<History history={history} />} />
-        <Route path="/about" element={<About />} />
-    </Routes>
-   </Router>
-  )
+    <Router>
+      <div className="min-h-screen bg-gray-100 flex justify-center">
+        {/* Container to mimic mobile app feel on desktop */}
+        <div className="w-full max-w-md bg-white shadow-xl min-h-screen relative overflow-hidden">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/result" element={<ScanResult />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/info" element={<Info />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
